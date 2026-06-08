@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Дариға | Қыз ұзату</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Forum&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Cormorant Garamond',serif;background:url('background.png') center center fixed;background-size:cover;color:#3d4d61;overflow-x:hidden;}
+.overlay{background:rgba(255,255,255,.45);backdrop-filter:blur(4px);min-height:100vh;}
+section{padding:80px 20px;}
+.card{max-width:900px;margin:auto;background:rgba(255,255,255,.75);backdrop-filter:blur(10px);border-radius:30px;padding:50px 30px;box-shadow:0 15px 40px rgba(0,0,0,.08);}
+.hero{min-height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;}
+.date-top{font-size:24px;letter-spacing:4px;margin-bottom:25px;}
+.monogram{width:170px;height:170px;border-radius:50%;margin:auto;display:flex;justify-content:center;align-items:center;border:2px solid rgba(120,150,190,.3);font-family:'Great Vibes',cursive;font-size:110px;color:#7d9bc0;background:rgba(255,255,255,.4);margin-bottom:30px;}
+.hero-name{font-family:'Cormorant Garamond',serif;font-size:90px;font-style:italic;}
+.hero-title{font-size:42px;margin-top:10px;letter-spacing:2px;}
+.hero-scroll{margin-top:40px;font-size:28px;animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+
+/* ── VINYL RECORD BUTTON ── */
+.vinyl-wrap{margin-top:28px;display:inline-flex;flex-direction:column;align-items:center;gap:12px;}
+.vinyl{position:relative;width:110px;height:110px;cursor:pointer;user-select:none;}
+.vinyl-disc{width:110px;height:110px;border-radius:50%;background:conic-gradient(
+  #1a1a2e 0deg 20deg,#2a2040 20deg 40deg,#1a1a2e 40deg 60deg,#2a2040 60deg 80deg,
+  #1a1a2e 80deg 100deg,#2a2040 100deg 120deg,#1a1a2e 120deg 140deg,#2a2040 140deg 160deg,
+  #1a1a2e 160deg 180deg,#2a2040 180deg 200deg,#1a1a2e 200deg 220deg,#2a2040 220deg 240deg,
+  #1a1a2e 240deg 260deg,#2a2040 260deg 280deg,#1a1a2e 280deg 300deg,#2a2040 300deg 320deg,
+  #1a1a2e 320deg 340deg,#2a2040 340deg 360deg
+);box-shadow:0 4px 20px rgba(0,0,0,.3);transition:transform .1s;}
+.vinyl.playing .vinyl-disc{animation:spin 2s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+.vinyl-label{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#e8c4d0,#c9a8c0);display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 2px 6px rgba(0,0,0,.3);}
+.vinyl-shine{position:absolute;top:8px;left:14px;width:28px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);transform:rotate(-30deg);pointer-events:none;}
+.vinyl-hole{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:7px;height:7px;border-radius:50%;background:#111;}
+.vinyl-text{font-size:16px;color:#5a6a7e;letter-spacing:1px;}
+
+/* ── FALLING PETALS ── */
+#petals-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;}
+
+/* ── CONFETTI CANVAS ── */
+#confetti-canvas{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9998;}
+
+.title{text-align:center;font-family:'Forum',serif;font-size:64px;color:#87A5CC;}
+.text{font-size:32px;line-height:1.7;text-align:center;}
+.decor{text-align:center;font-size:50px;margin:35px 0;opacity:.7;}
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin-top:20px;}
+.info-box{padding:25px;border-radius:20px;background:rgba(255,255,255,.7);text-align:center;}
+.info-box h3{font-size:34px;margin-bottom:10px;}
+.info-box p{font-size:28px;}
+.countdown{display:flex;justify-content:center;flex-wrap:wrap;gap:15px;margin-top:35px;}
+.time-box{width:120px;height:120px;border-radius:20px;background:white;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.time-box span:first-child{font-size:42px;font-weight:bold;}
+.time-box span:last-child{font-size:18px;}
+.address{text-align:center;font-size:30px;line-height:1.8;}
+.map-btn{display:inline-block;margin-top:25px;padding:15px 40px;border-radius:50px;background:#7c9cc1;color:white;text-decoration:none;font-size:22px;}
+.form-group{margin-bottom:25px;}
+input[type=text],input[type=number]{width:100%;padding:18px;border:none;border-radius:15px;font-size:20px;font-family:inherit;}
+label{display:block;margin-bottom:12px;font-size:28px;}
+.radio{margin:15px 0;font-size:24px;}
+.radio input{margin-right:10px;}
+#guestsBox{display:none;margin-top:20px;}
+.submit-btn{width:100%;padding:18px;border:none;border-radius:50px;font-size:24px;cursor:pointer;background:#7c9cc1;color:white;}
+.success{display:none;margin-top:20px;text-align:center;font-size:28px;color:green;}
+.footer-text{text-align:center;font-size:40px;line-height:1.5;}
+.fade{opacity:0;transform:translateY(40px);transition:1s;}
+.fade.show{opacity:1;transform:none;}
+@media(max-width:768px){
+.hero-name{font-size:70px;}
+.hero-title{font-size:30px;}
+.title{font-size:48px;}
+.text{font-size:24px;}
+.info-grid{grid-template-columns:1fr;}
+.address{font-size:24px;}
+.footer-text{font-size:30px;}
+}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Canvases for effects -->
+<canvas id="petals-canvas"></canvas>
+<canvas id="confetti-canvas"></canvas>
+
+<div class="overlay">
+
+<section class="hero">
+<div>
+<div class="date-top">01.08.2026</div>
+<div class="monogram">D</div>
+<div class="hero-name">Дариға</div>
+<div class="hero-title">Қыз ұзату</div>
+<div class="hero-scroll">↓ Төмен түсіңіз</div>
+
+<!-- VINYL RECORD -->
+<div class="vinyl-wrap">
+  <div class="vinyl" id="vinyl" onclick="toggleMusic()">
+    <div class="vinyl-disc"></div>
+    <div class="vinyl-shine"></div>
+    <div class="vinyl-label">♫</div>
+    <div class="vinyl-hole"></div>
+  </div>
+  <div class="vinyl-text" id="vinyl-text">Музыканы қосу</div>
+</div>
+
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="title">Қош келдіңіздер</div>
+<div class="text">
+Қымбатты ағайын-туыс, жақындар мен достар!<br><br>
+Сіздерді қызымыз Дариғаның қыз ұзату салтанатына арналған мерекелік кешімізге қуана шақырамыз!<br><br>
+Тойымыздың сәнін келтіріп, қуанышымызға ортақ болуларыңызды күтеміз!
+</div>
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="decor">❀</div>
+<div class="title">Той салтанаты</div>
+<div class="info-grid">
+<div class="info-box"><h3>🗓️ Күні</h3><p>1 тамыз 2026 жыл</p></div>
+<div class="info-box"><h3>🕖 Басталуы</h3><p>19:00</p></div>
+</div>
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="title">Тойға дейін</div>
+<div class="countdown">
+<div class="time-box"><span id="days">0</span><span>Күн</span></div>
+<div class="time-box"><span id="hours">0</span><span>Сағат</span></div>
+<div class="time-box"><span id="minutes">0</span><span>Минут</span></div>
+<div class="time-box"><span id="seconds">0</span><span>Секунд</span></div>
+</div>
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="title">Мекен жайымыз</div>
+<div class="address">
+Түркістан қаласы,<br>
+Жібек жолы даңғылы,<br>
+Шәуілдір көшесі, 64<br><br>
+<b>Шахсарай мейрамханасы</b><br>
+<a class="map-btn" target="_blank" href="https://2gis.kz/turkestan/geo/70000001058979282/68.291252,43.282239">2GIS арқылы ашу</a>
+</div>
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="title">Той иесі</div>
+<div class="text">Сауле<br><br>Қадірлі қонағымыз, тойымыздың көркі болыңыз!</div>
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="title">Қатысуыңызды растаңыз</div>
+<div class="text" style="font-size:26px;margin-bottom:30px;">Жұбыңызбен келетін болсаңыз, есімдеріңізді бірге жазуыңызды өтінеміз</div>
+<form id="rsvpForm">
+<div class="form-group">
+<input type="text" id="name" placeholder="Аты-жөніңіз" required>
+</div>
+<div class="radio"><label><input type="radio" name="answer" value="Иә, міндетті түрде барамын" required> Иә, міндетті түрде барамын</label></div>
+<div class="radio"><label><input type="radio" name="answer" value="Өкінішке орай, қатыса алмаймын"> Өкінішке орай, қатыса алмаймын</label></div>
+<div id="guestsBox">
+<label>Қанша адам келесіздер?</label>
+<input type="number" id="guests" value="1" min="1">
+</div>
+<button class="submit-btn">ЖІБЕРУ</button>
+</form>
+<div id="success" class="success">Рақмет! Жауабыңыз қабылданды.</div>
+</div>
+</section>
+
+<section class="fade">
+<div class="card">
+<div class="footer-text">Келіңіздер,<br>қуанышымыздың қадірлі қонағы болыңыздар!</div>
+</div>
+</section>
+
+</div>
+
+<script>
+/* ── MUSIC + VINYL ── */
+const music = document.getElementById('bgMusic');
+const vinyl = document.getElementById('vinyl');
+const vinylText = document.getElementById('vinyl-text');
+
+function toggleMusic(){
+  if(music.paused){
+    music.play();
+    vinyl.classList.add('playing');
+    vinylText.textContent = 'Музыканы тоқтату';
+  } else {
+    music.pause();
+    vinyl.classList.remove('playing');
+    vinylText.textContent = 'Музыканы қосу';
+  }
+}
+
+/* ── COUNTDOWN ── */
+const targetDate = new Date("August 1, 2026 19:00:00").getTime();
+setInterval(()=>{
+  const now = new Date().getTime();
+  const distance = targetDate - now;
+  document.getElementById("days").innerText = Math.floor(distance/(1000*60*60*24));
+  document.getElementById("hours").innerText = Math.floor((distance%(1000*60*60*24))/(1000*60*60));
+  document.getElementById("minutes").innerText = Math.floor((distance%(1000*60*60))/(1000*60));
+  document.getElementById("seconds").innerText = Math.floor((distance%(1000*60))/1000);
+},1000);
+
+/* ── RSVP ── */
+document.querySelectorAll('input[name="answer"]').forEach(r=>{
+  r.addEventListener('change',()=>{
+    document.getElementById('guestsBox').style.display = r.value.includes('Иә') && r.checked ? 'block' : 'none';
+  });
+});
+
+const BIN_ID      = "6a266ebff5f4af5e29c9b57b";
+const MASTER_KEY  = "$2a$10$vMI8CQg8wYmphn..Wdhrxu0mQZMQmuKyImYQiytbkiVy6mNMteoqK";
+const ACCESS_KEY  = "$2a$10$/idXpm4aHUpvXuN.I5qklOBX8yueKSr/qPU6AFDSWLNRIyohTaTBO";
+const BIN_URL     = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+
+document.getElementById("rsvpForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+  const name = document.getElementById("name").value.trim();
+  const answer = document.querySelector('input[name="answer"]:checked').value;
+  const guests = answer.includes("Иә") ? parseInt(document.getElementById("guests").value) : 0;
+  const submitBtn = this.querySelector('.submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = "Жіберілуде...";
+  try {
+    /* 1. читаем текущий список — Master Key (Read) */
+    const getRes = await fetch(BIN_URL + "/latest", {
+      headers: { "X-Access-Key": ACCESS_KEY }
+    });
+    const getData = await getRes.json();
+    const existing = getData.record.guests || [];
+
+    /* 2. добавляем новую запись */
+    const newEntry = {
+      name,
+      answer,
+      guests,
+      time: new Date().toLocaleString("ru-RU", {timeZone:"Asia/Almaty"})
+    };
+    existing.push(newEntry);
+
+    /* 3. записываем обратно — Access Key (Create + Update) */
+    await fetch(BIN_URL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Access-Key": ACCESS_KEY
+      },
+      body: JSON.stringify({ guests: existing })
+    });
+
+    document.getElementById("success").style.display = "block";
+    document.getElementById("rsvpForm").reset();
+    document.getElementById("guestsBox").style.display = "none";
+  } catch(err){
+    alert("Қате орын алды. Қайталап көріңіз.");
+  } finally {
+    submitBtn.disabled = false;
+    submitBtn.textContent = "ЖІБЕРУ";
+  }
+});
+
+/* ── FADE IN ON SCROLL ── */
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      /* burst confetti when a card appears */
+      burstConfetti(window.innerWidth/2, window.innerHeight*0.4);
+    }
+  });
+});
+document.querySelectorAll('.fade').forEach(el=>observer.observe(el));
+
+/* ═══════════════════════════════════════════
+   FALLING PETALS
+═══════════════════════════════════════════ */
+(function(){
+  const canvas = document.getElementById('petals-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const COLORS = ['#f7c5d5','#f0a8c0','#e8c4e0','#fad4e8','#d4b8e0','#f9e0ee','#fce4ec'];
+
+  class Petal {
+    constructor(){
+      this.reset(true);
+    }
+    reset(init){
+      this.x = Math.random() * W;
+      this.y = init ? Math.random() * H * -1 : -30;
+      this.r = 6 + Math.random() * 10;
+      this.color = COLORS[Math.floor(Math.random()*COLORS.length)];
+      this.speedY = 0.6 + Math.random() * 1.2;
+      this.speedX = (Math.random() - 0.5) * 0.8;
+      this.angle = Math.random() * Math.PI * 2;
+      this.rotSpeed = (Math.random() - 0.5) * 0.04;
+      this.sway = Math.random() * 0.6;
+      this.swayT = Math.random() * 100;
+      this.opacity = 0.6 + Math.random() * 0.4;
+    }
+    draw(){
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
+      ctx.translate(this.x, this.y);
+      ctx.rotate(this.angle);
+      ctx.fillStyle = this.color;
+      /* draw a simple petal shape */
+      ctx.beginPath();
+      ctx.ellipse(0, 0, this.r * 0.55, this.r, 0, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+    update(){
+      this.swayT += 0.02;
+      this.x += this.speedX + Math.sin(this.swayT) * this.sway;
+      this.y += this.speedY;
+      this.angle += this.rotSpeed;
+      if(this.y > H + 30) this.reset(false);
+    }
+  }
+
+  const petals = Array.from({length: 35}, () => new Petal());
+
+  function loop(){
+    ctx.clearRect(0, 0, W, H);
+    petals.forEach(p => { p.update(); p.draw(); });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ═══════════════════════════════════════════
+   CONFETTI BURST ON CARD REVEAL
+═══════════════════════════════════════════ */
+const confettiCanvas = document.getElementById('confetti-canvas');
+const cCtx = confettiCanvas.getContext('2d');
+let cW, cH;
+function resizeC(){ cW = confettiCanvas.width = window.innerWidth; cH = confettiCanvas.height = window.innerHeight; }
+resizeC();
+window.addEventListener('resize', resizeC);
+
+const confettiPieces = [];
+const CONF_COLORS = ['#f7c5d5','#b8cde3','#c9a8c0','#87A5CC','#f0c4a0','#a8d5b5','#fce4ec'];
+
+class ConfettiPiece {
+  constructor(x, y){
+    this.x = x;
+    this.y = y;
+    this.vx = (Math.random() - 0.5) * 8;
+    this.vy = -4 - Math.random() * 5;
+    this.color = CONF_COLORS[Math.floor(Math.random()*CONF_COLORS.length)];
+    this.w = 6 + Math.random() * 7;
+    this.h = 3 + Math.random() * 4;
+    this.angle = Math.random() * Math.PI * 2;
+    this.rotSpeed = (Math.random() - 0.5) * 0.15;
+    this.life = 1;
+    this.decay = 0.012 + Math.random() * 0.01;
+    this.gravity = 0.15;
+  }
+  update(){
+    this.vy += this.gravity;
+    this.x += this.vx;
+    this.y += this.vy;
+    this.angle += this.rotSpeed;
+    this.life -= this.decay;
+  }
+  draw(){
+    cCtx.save();
+    cCtx.globalAlpha = Math.max(0, this.life);
+    cCtx.translate(this.x, this.y);
+    cCtx.rotate(this.angle);
+    cCtx.fillStyle = this.color;
+    cCtx.fillRect(-this.w/2, -this.h/2, this.w, this.h);
+    cCtx.restore();
+  }
+}
+
+function burstConfetti(x, y){
+  for(let i = 0; i < 60; i++){
+    confettiPieces.push(new ConfettiPiece(x, y));
+  }
+}
+
+let confettiRunning = false;
+function confettiLoop(){
+  cCtx.clearRect(0, 0, cW, cH);
+  for(let i = confettiPieces.length - 1; i >= 0; i--){
+    confettiPieces[i].update();
+    confettiPieces[i].draw();
+    if(confettiPieces[i].life <= 0) confettiPieces.splice(i, 1);
+  }
+  if(confettiPieces.length > 0){
+    requestAnimationFrame(confettiLoop);
+  } else {
+    confettiRunning = false;
+  }
+}
+
+/* Override observer to also trigger confetti loop */
+const origObserver = observer;
+const obsWithConfetti = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      burstConfetti(window.innerWidth/2, window.innerHeight*0.45);
+      if(!confettiRunning){
+        confettiRunning = true;
+        confettiLoop();
+      }
+    }
+  });
+},{threshold:0.25});
+document.querySelectorAll('.fade').forEach(el=>obsWithConfetti.observe(el));
+</script>
+
+</body>
+</html>
