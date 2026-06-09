@@ -58,12 +58,14 @@ section{padding:80px 20px;}
 .address{text-align:center;font-size:30px;line-height:1.8;}
 .map-btn{display:inline-block;margin-top:25px;padding:15px 40px;border-radius:50px;background:#7c9cc1;color:white;text-decoration:none;font-size:22px;}
 .form-group{margin-bottom:25px;}
-input[type=text],input[type=number]{width:100%;padding:18px;border:none;border-radius:15px;font-size:20px;font-family:inherit;}
+input[type=text],input[type=number]{width:100%;padding:18px;border:2px solid #b8cde3;border-radius:15px;font-size:20px;font-family:inherit;background:rgba(255,255,255,.9);outline:none;transition:border-color .2s,box-shadow .2s;}
+input[type=text]:focus,input[type=number]:focus{border-color:#7c9cc1;box-shadow:0 0 0 4px rgba(124,156,193,.15);}
+input[type=text]::placeholder,input[type=number]::placeholder{color:#aab8c8;}
 label{display:block;margin-bottom:12px;font-size:28px;}
 .radio{margin:15px 0;font-size:24px;}
 .radio input{margin-right:10px;}
 #guestsBox{display:none;margin-top:20px;}
-.submit-btn{width:100%;padding:18px;border:none;border-radius:50px;font-size:24px;cursor:pointer;background:#7c9cc1;color:white;}
+.submit-btn{width:100%;padding:18px;border:none;border-radius:50px;font-size:24px;cursor:pointer;background:#7c9cc1;color:white;margin-top:30px;display:block;}
 .success{display:none;margin-top:20px;text-align:center;font-size:28px;color:green;}
 .footer-text{text-align:center;font-size:40px;line-height:1.5;}
 .fade{opacity:0;transform:translateY(40px);transition:1s;}
@@ -129,7 +131,7 @@ label{display:block;margin-bottom:12px;font-size:28px;}
 <div class="decor">❀</div>
 <div class="title">Той салтанаты</div>
 <div class="info-grid">
-<div class="info-box"><h3>🗓️ Күні</h3><p>1 тамыз 2026 жыл</p></div>
+<div class="info-box"><h3>📅 Күні</h3><p>1 тамыз 2026 жыл</p></div>
 <div class="info-box"><h3>🕖 Басталуы</h3><p>19:00</p></div>
 </div>
 </div>
@@ -163,7 +165,32 @@ label{display:block;margin-bottom:12px;font-size:28px;}
 <section class="fade">
 <div class="card">
 <div class="title">Той иесі</div>
-<div class="text">Сауле<br><br>Қадірлі қонағымыз, тойымыздың көркі болыңыз!</div>
+
+<div style="text-align:center;margin:40px 0 30px;">
+  <div style="
+    font-family:'Cormorant Garamond',serif;
+    font-size:110px;
+    font-style:italic;
+    font-weight:500;
+    line-height:1;
+    background:linear-gradient(135deg,#7d9bc0 0%,#b8a0cc 50%,#e8a0b4 100%);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    background-clip:text;
+    filter:drop-shadow(0 2px 8px rgba(124,156,193,.25));
+  ">Сауле</div>
+  <div style="
+    margin-top:16px;
+    font-size:22px;
+    letter-spacing:8px;
+    color:#a0b4c8;
+    text-transform:uppercase;
+  ">— — —</div>
+</div>
+
+<div class="text" style="font-size:28px;">
+Қадірлі қонағымыз,<br>тойымыздың көркі болыңыз!
+</div>
 </div>
 </section>
 
@@ -176,7 +203,7 @@ label{display:block;margin-bottom:12px;font-size:28px;}
 <input type="text" id="name" placeholder="Аты-жөніңіз" required>
 </div>
 <div class="radio"><label><input type="radio" name="answer" value="Иә, міндетті түрде барамын" required> Иә, міндетті түрде барамын</label></div>
-<div class="radio"><label><input type="radio" name="answer" value="Өкінішке орай, қатыса алмаймын"> Өкінішке орай, қатыса алмаймын</label></div>
+<div class="radio"><label><input type="radio" name="answer" value="Өкінішке қарай, қатыса алмаймын"> Өкінішке қарай, қатыса алмаймын</label></div>
 <div id="guestsBox">
 <label>Қанша адам келесіздер?</label>
 <input type="number" id="guests" value="1" min="1">
